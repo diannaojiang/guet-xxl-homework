@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ERROR);
 $origin_text = $_POST['text']; //获得原文献
+$put_num = $_POST['num']; //获得生成字符数
 
 function match_eng($string, $encoding = 'utf8') {
 	//预处理函数
@@ -39,7 +40,7 @@ foreach ($X as $key => $value) {
 }
 $H1 = -$H1;
 $H1_text = '';
-for ($i = 0; $i < 300; $i++) {
+for ($i = 0; $i < $put_num; $i++) {
 	$H1_text = $H1_text . pro_rand($P); //以H1为信源生成300个字符的序列
 }
 
@@ -63,7 +64,7 @@ foreach ($X2 as $char1 => $char2) {
 }
 $H2 = -$H2;
 $H2_text = substr($H1_text, 0, 1); //使用H1生成首字母
-for ($i = 1; $i < 300; $i++) {
+for ($i = 1; $i < $put_num; $i++) {
 	$H2_text = $H2_text . pro_rand($P2[$H2_text[$i - 1]]); //以H2为信源生成300个字符的序列
 }
 
@@ -86,7 +87,7 @@ foreach ($X3 as $char1 => $char2) {
 	}
 }
 $H3_text = substr($H2_text, 0, 2); //使用H1H2生成首次字母
-for ($i = 2; $i < 300; $i++) {
+for ($i = 2; $i < $put_num; $i++) {
 	$H3_text = $H3_text . pro_rand($P3[$H3_text[$i - 2]][$H3_text[$i - 1]]); //以H3为信源生成300个字符的序列
 }
 
@@ -109,22 +110,24 @@ for ($i = 2; $i < 300; $i++) {
 		<div class="row clearfix">
 			<div class="col-md-12 column">
 				<h1>信息论课程大作业</h1>
-				<h5>学号：1800201821</h3>
+				<h5>学号：1800201821</h5>
+				<h5>出于隐私保护，在开源界面不标注更多个人信息</h5>
 				<div class="row clearfix">
 					<div class="col-md-6 column">
-						<h3>在下方填入文献</h5>
-						<form action="./" method="post"  role="form">
+						<h3>在下方填入文献</h3>
+						<form action="./xxl.php" method="post"  role="form">
 							<div class="form-group">
 								<textarea name="text" style="resize: both !important;"><?php echo $origin_text; ?></textarea>
 							</div>
 							<div class="form-group">
+								<input type="number" name="num" value="300">
 								<input type="submit" value="提交">
 								<input type="reset" value="重置">
 							</div>
 						</form>
 					</div>
 					<div class="col-md-6 column">
-						<h3>预处理后的文本</h5>
+						<h3>预处理后的文本</h3>
 						<p style=" word-wrap: break-word;word-break: break-all;overflow: hidden;"><?php echo $match_text; ?></p>
 					</div>
 				</div>
@@ -134,7 +137,7 @@ for ($i = 2; $i < 300; $i++) {
 			<div class="col-md-12 column">
 				<div class="row clearfix">
 					<div class="col-md-6 column">
-						<h3>信源熵H₁输出</h5>
+						<h3>信源熵H₁输出</h3>
 						<table class="table table-hover table-bordered">
 							<thead>
 								<th>符号</th>
@@ -168,7 +171,7 @@ for ($i = 0; $i < 7; $i++) {
 		</div>
 		<div class="row clearfix">
 			<div class="col-md-12 column">
-						<h3>信源熵H₂输出</h5>
+						<h3>信源熵H₂输出</h3>
 						<table class="table table-hover table-bordered">
 							<thead>
 								<th id="lineTd">
@@ -200,15 +203,15 @@ for ($i = 0; $i < 27; $i++) {
 			<div class="col-md-12 column">
 				<div class="row clearfix">
 					<div class="col-md-4 column">
-						<h3>H₁序列生成</h5>
+						<h3>H₁序列生成</h3>
 						<p style=" word-wrap: break-word;word-break: break-all;overflow: hidden;"><?php echo $H1_text; ?></p>
 					</div>
 					<div class="col-md-4 column">
-						<h3>H₂序列生成</h5>
+						<h3>H₂序列生成</h3>
 						<p style=" word-wrap: break-word;word-break: break-all;overflow: hidden;"><?php echo $H2_text; ?></p>
 					</div>
 					<div class="col-md-4 column">
-						<h3>H₃序列生成</h5>
+						<h3>H₃序列生成</h3>
 						<p style=" word-wrap: break-word;word-break: break-all;overflow: hidden;"><?php echo $H3_text; ?></p>
 					</div>
 				</div>
